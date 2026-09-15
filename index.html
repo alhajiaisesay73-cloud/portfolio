@@ -231,6 +231,18 @@
   .tile b { display: block; font-size: 30px; font-weight: 700; letter-spacing: -0.028em; font-variant-numeric: tabular-nums; line-height: 1.1; }
   .tile span { display: block; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--hero-dim); margin-top: 7px; }
 
+  /* same tile, on the light ground of a body section */
+  .proof.light { margin-top: 30px; }
+  .proof.light .tile {
+    background: var(--glass); border-color: var(--border); color: var(--navy);
+    box-shadow: 0 2px 10px rgba(13,27,42,0.05);
+    backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  }
+  .proof.light .tile:hover { border-color: rgba(30,111,217,0.42); background: var(--glass-2);
+                             box-shadow: 0 14px 34px rgba(13,27,42,0.11); }
+  .proof.light .tile b { color: var(--navy); }
+  .proof.light .tile span { color: var(--text-faint); }
+
   /* ========================================================== sections */
   section { padding-block: 74px; position: relative; z-index: 1; }
   .eyebrow { font-size: 11.5px; font-weight: 700; letter-spacing: 0.17em; text-transform: uppercase; color: var(--blue-lift); margin: 0 0 12px; }
@@ -500,6 +512,12 @@
       <p class="eyebrow">Production evidence</p>
       <h2>The numbers that are actually mine</h2>
       <p class="lead">Two screens from live client accounts. I have blurred the names, not the figures.</p>
+
+      <div class="proof light">
+        <div class="tile"><b data-to="2637">2,637</b><span>Sends, one ManyChat flow</span></div>
+        <div class="tile"><b data-to="76">76</b><span>Opportunities in the pipeline</span></div>
+        <div class="tile"><b data-to="37">37</b><span>Of them booked</span></div>
+      </div>
     </div>
 
     <div class="grid2">
@@ -882,24 +900,47 @@
 (function () {
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* ---- count up the hero figures -------------------------------------- */
-  function countUp(el) {
+  /* ---- figures count up when they scroll into view ---------------------
+     Tied to visibility rather than page load, so the count runs whenever you
+     actually arrive at the numbers, and again if you scroll back to them.  */
+  var nums = document.querySelectorAll('b[data-to]');
+
+  function countUp(el, delay) {
     var to = parseInt(el.dataset.to, 10);
     var pre = el.dataset.prefix || '', suf = el.dataset.suffix || '';
-    if (reduce || !to) return;
-    var dur = 1200, start = null;
+    if (!to) return;
+    var dur = 1500, start = null;
+    if (el._raf) cancelAnimationFrame(el._raf);
     function frame(t) {
       if (start === null) start = t;
       var p = Math.min((t - start) / dur, 1);
-      var eased = 1 - Math.pow(1 - p, 3);
+      var eased = 1 - Math.pow(1 - p, 4);          // fast, then settles
       el.textContent = pre + Math.round(to * eased).toLocaleString('en-US') + suf;
-      if (p < 1) requestAnimationFrame(frame);
+      if (p < 1) el._raf = requestAnimationFrame(frame);
     }
     el.textContent = pre + '0' + suf;
-    requestAnimationFrame(frame);
+    setTimeout(function () { el._raf = requestAnimationFrame(frame); }, delay || 0);
   }
-  var nums = document.querySelectorAll('.tile b[data-to]');
-  setTimeout(function () { nums.forEach(countUp); }, 640);
+
+  if (reduce || !('IntersectionObserver' in window)) {
+    // leave the final values in the markup exactly as written
+  } else {
+    var counted = new WeakMap();
+    var numObs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        var el = e.target;
+        if (e.isIntersecting) {
+          if (counted.get(el)) return;
+          counted.set(el, true);
+          var peers = [].slice.call(el.closest('.proof, .wrap').querySelectorAll('b[data-to]'));
+          countUp(el, peers.indexOf(el) * 110);     // stagger across the row
+        } else {
+          counted.set(el, false);                   // re-arm once it leaves
+        }
+      });
+    }, { threshold: 0.55 });
+    nums.forEach(function (el) { numObs.observe(el); });
+  }
 
   /* ---- glass nav drops in once the hero is behind you ------------------ */
   var nav = document.getElementById('nav'), hero = document.querySelector('.hero');
