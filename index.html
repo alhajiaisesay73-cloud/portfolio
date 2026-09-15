@@ -947,46 +947,77 @@
       <h2>I run my business on one of these too</h2>
       <span class="chip">Live, in daily use</span>
       <p class="lead">
-        Most people selling automation run their own business out of a notes app. I do not. The
-        system below finds the work, scores it, queues it, and refuses to spend a penny of my
-        money or a word of my name without me pressing a button.
+        Most people selling automation run their own business out of a notes app. I do not.
+        Every account I own, across mail, calendar, files and chat, sits behind tooling I
+        wrote, and an assistant can reach all of it in one question instead of four.
       </p>
     </div>
 
     <div class="reveal">
       <figure>
-        <button class="plate" type="button" data-full="img/aios-dashboard.png" data-cap="The live queue. Every opportunity scored before I see it, every stage tracked, and nothing drafted until I ask for it. Spend figures removed.">
-          <img src="img/aios-dashboard.png" alt="A live proposal queue dashboard showing scored opportunities, pipeline stages from draft through applied, and captured screening questions">
+        <button class="plate" type="button" data-full="img/aios-mcp-server.png" data-cap="The tool definitions from the MCP server I wrote. Every tool carries the description the model reads when it decides which one to use, a typed input schema, and a defined answer for when authentication has expired.">
+          <img src="img/aios-mcp-server.png" alt="Source code of an MCP server showing tool definitions with names, model-facing descriptions, typed input schemas and authentication error handling">
         </button>
-        <figcaption>The live queue. Scored before I see it, tracked to the outcome, and nothing written until I ask. My own spend figures are removed.</figcaption>
+        <figcaption>The tool definitions from the MCP server I wrote. Each one carries the description the model reads when it picks a tool, a typed input schema, and a defined answer for when authentication has expired rather than a crash.</figcaption>
       </figure>
+    </div>
+
+    <div class="grid2">
+      <div class="reveal">
+        <h3>One question, every account</h3>
+        <p>
+          Off the shelf, an assistant connects to exactly one Google account. I have several,
+          each with its own mail, calendar and files, and the work is spread across all of
+          them. So I wrote a small server, about four hundred lines with no dependencies,
+          that fronts every account at once.
+        </p>
+        <p>
+          Every tool takes an account argument: one alias, a list of them, or all. "Any client
+          replies this week" searches all of them and comes back as one answer. Chasing the
+          same question through four inboxes is not a workflow, it is a tax.
+        </p>
+      </div>
+      <div class="reveal">
+        <h3>Read by default, write on purpose</h3>
+        <p>
+          The chat server is the clearest example. It ships with no message-posting tool at
+          all. Sending has to be switched on deliberately, in a config file, by me. That is
+          not caution for its own sake. It means the blast radius of a mistake is a wrong
+          answer on my screen rather than a wrong message in somebody's thread.
+        </p>
+        <p>
+          When someone asks me to build an agent that will touch their customers, this is the
+          shape I argue for. Full autonomy right up to the point where a mistake would be
+          embarrassing, and then a person.
+        </p>
+      </div>
     </div>
 
     <div class="grid2">
       <div class="reveal">
         <h3>The expensive part happens last</h3>
         <p>
-          Everything cheap runs first. Hard rules in plain code throw out most of what comes in
-          at no cost at all, and only what survives gets scored against a rubric. The AI is the
-          last thing to be woken up, not the first.
+          Everything cheap runs first. Plain code costs nothing to run, so it does the
+          filtering and the arithmetic, and only what survives is worth waking a model for.
+          The AI is the last thing called, not the first.
         </p>
         <p>
-          That ordering is the whole discipline, and it is the same one I apply to a client
-          build. If a filter can answer it, a filter should answer it. Every model call you make
-          out of laziness is a bill you pay forever.
+          That ordering is the whole discipline and it is the same one I apply to a client
+          build. If a filter can answer it, a filter should answer it. Every model call made
+          out of laziness is a bill paid forever.
         </p>
       </div>
       <div class="reveal">
-        <h3>It never speaks for me on its own</h3>
+        <h3>Written down, not improvised</h3>
         <p>
-          It finds, filters, scores and queues without supervision. It does not write and it does
-          not send. Anything that would go out under my name waits behind a button, and the
-          outcome comes back into the system afterwards so the numbers it reports are real ones.
+          The recurring jobs are written as skills: a trigger, the tools to reach for and in
+          what order, what to do when a record is missing or two sources disagree, and a
+          literal output template the answer has to fill in. A weekly review of my own setup
+          scores it against a fixed rubric and returns the same shape every time.
         </p>
         <p>
-          When somebody asks me to build them an agent that contacts their customers, this is the
-          shape I argue for. Full autonomy up to the point where it would be embarrassing, then a
-          human.
+          A written rubric is a rule I can argue with. A feeling is not. One of these runs on
+          a schedule every morning before the working day starts, and the rest run when I ask.
         </p>
       </div>
     </div>
@@ -994,12 +1025,12 @@
     <div class="callout reveal">
       <strong>Why this is in a portfolio at all</strong>
       <p>
-        Because it is the honest version of the pitch. A system I use every day, that I have had
-        to live with the consequences of, tells you more about how I build than a demo that was
-        assembled to be looked at once.
+        Because it is the honest version of the pitch. A system I use every day, that I have
+        had to live with the consequences of, tells you more about how I build than a demo
+        that was assembled to be looked at once.
       </p>
       <p>
-        If you want the same thing pointed at your pipeline instead of mine, that is a normal
+        If you want the same thing pointed at your business instead of mine, that is a normal
         piece of work and it is one of the most common things I get asked for now.
       </p>
     </div>
