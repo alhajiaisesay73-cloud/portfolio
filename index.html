@@ -279,7 +279,19 @@
 
   /* ========================================================== sections */
   section { padding-block: 74px; position: relative; z-index: 1; }
-  .eyebrow { font-size: 11.5px; font-weight: 700; letter-spacing: 0.17em; text-transform: uppercase; color: var(--blue-lift); margin: 0 0 12px; }
+  .eyebrow {
+    display: flex; align-items: center; gap: 16px;
+    font-size: 13.5px; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--blue); margin: 0 0 22px;
+  }
+  .eyebrow::before {
+    content: ""; width: 9px; height: 9px; flex: none; border-radius: 2px;
+    background: var(--blue); transform: rotate(45deg);
+  }
+  .eyebrow::after {
+    content: ""; flex: 1 1 auto; height: 2px; border-radius: 2px;
+    background: linear-gradient(90deg, var(--blue) 0%, rgba(30,111,217,0.22) 32%, rgba(30,111,217,0) 100%);
+  }
   h2 {
     font-size: clamp(25px, 3.9vw, 39px); font-weight: 700; letter-spacing: -0.022em;
     line-height: 1.15; text-wrap: balance; margin: 0 0 16px; color: var(--navy);
@@ -641,17 +653,6 @@
       </div>
     </div>
 
-    <div class="callout reveal">
-      <strong>What I will not show you</strong>
-      <p>
-        I am not going to quote you a conversion rate from a system that has not run at volume,
-        and I am not going to put somebody else's work in here with my name on it.
-      </p>
-      <p>
-        Where a project has real numbers, they are above. Where it does not, the page says so
-        plainly. You can check everything here.
-      </p>
-    </div>
   </div>
 </section>
 
@@ -694,20 +695,6 @@
       </div>
     </div>
 
-    <div class="callout reveal">
-      <strong>Something I found going back through it</strong>
-      <p>
-        The chat agent tags guests in HubSpot as "Web Chat". The dashboard searches for
-        "web_chat". Those do not match, so the reporting has shown nothing this whole time
-        while everything else ran fine.
-      </p>
-      <p>
-        It is a one-value fix and I have taken it to them with a recommendation to backfill
-        rather than start from zero. I am putting it in my own portfolio because you are going
-        to hire someone who ships bugs either way. What you want to know is whether they go
-        back and look, and whether they tell you.
-      </p>
-    </div>
   </div>
 </section>
 
@@ -1088,7 +1075,6 @@
 <footer class="site">
   <div class="wrap">
     <span>Alhaji Sesay &nbsp;·&nbsp; AI Automation Consultant</span>
-    <span>Freetown, Sierra Leone &nbsp;·&nbsp; GMT</span>
     <span><a href="https://www.upwork.com/freelancers/~01ac8df0eb07c83fa9" target="_blank" rel="noopener">Top Rated Plus on Upwork</a></span>
   </div>
 </footer>
