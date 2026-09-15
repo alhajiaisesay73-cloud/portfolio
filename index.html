@@ -903,7 +903,17 @@
   /* ---- figures count up when they scroll into view ---------------------
      Tied to visibility rather than page load, so the count runs whenever you
      actually arrive at the numbers, and again if you scroll back to them.  */
-  var nums = document.querySelectorAll('b[data-to]');
+  var nums = [].slice.call(document.querySelectorAll('b[data-to]'));
+
+  // The final label is whatever the markup says, so the figure is correct even
+  // if scripting never runs. Everything below only ever animates toward it.
+  nums.forEach(function (el) { el._final = el.textContent; });
+
+  function settle(el) {
+    if (el._raf) { cancelAnimationFrame(el._raf); el._raf = null; }
+    if (el._timer) { clearTimeout(el._timer); el._timer = null; }
+    el.textContent = el._final;
+  }
 
   function countUp(el, delay) {
     var to = parseInt(el.dataset.to, 10);
@@ -911,35 +921,52 @@
     if (!to) return;
     var dur = 1500, start = null;
     if (el._raf) cancelAnimationFrame(el._raf);
+    if (el._timer) clearTimeout(el._timer);
+
     function frame(t) {
       if (start === null) start = t;
       var p = Math.min((t - start) / dur, 1);
-      var eased = 1 - Math.pow(1 - p, 4);          // fast, then settles
+      var eased = 1 - Math.pow(1 - p, 4);          // quick, then settles
+      if (p >= 1) { el.textContent = el._final; el._raf = null; return; }
       el.textContent = pre + Math.round(to * eased).toLocaleString('en-US') + suf;
-      if (p < 1) el._raf = requestAnimationFrame(frame);
+      el._raf = requestAnimationFrame(frame);
     }
-    el.textContent = pre + '0' + suf;
-    setTimeout(function () { el._raf = requestAnimationFrame(frame); }, delay || 0);
+    el._timer = setTimeout(function () {
+      el._timer = null;
+      el.textContent = pre + '0' + suf;            // zero only as it starts
+      el._raf = requestAnimationFrame(frame);
+    }, delay || 0);
   }
 
   if (reduce || !('IntersectionObserver' in window)) {
-    // leave the final values in the markup exactly as written
+    // markup already holds the final figures, so there is nothing to do
   } else {
-    var counted = new WeakMap();
+    var running = new WeakMap();
     var numObs = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {
         var el = e.target;
         if (e.isIntersecting) {
-          if (counted.get(el)) return;
-          counted.set(el, true);
-          var peers = [].slice.call(el.closest('.proof, .wrap').querySelectorAll('b[data-to]'));
-          countUp(el, peers.indexOf(el) * 110);     // stagger across the row
+          if (running.get(el)) return;
+          running.set(el, true);
+          var row = el.closest('.proof') || el.parentElement;
+          var peers = [].slice.call(row.querySelectorAll('b[data-to]'));
+          countUp(el, Math.max(0, peers.indexOf(el)) * 110);
         } else {
-          counted.set(el, false);                   // re-arm once it leaves
+          // Leaving view cancels and restores the real figure, so a counter
+          // interrupted part-way can never be left reading zero.
+          running.set(el, false);
+          settle(el);
         }
       });
-    }, { threshold: 0.55 });
+    }, { threshold: 0.25 });
     nums.forEach(function (el) { numObs.observe(el); });
+
+    // Belt and braces: if anything is still mid-count after 6s, settle it.
+    setTimeout(function () {
+      nums.forEach(function (el) {
+        if (el.textContent !== el._final && !el._raf && !el._timer) settle(el);
+      });
+    }, 6000);
   }
 
   /* ---- glass nav drops in once the hero is behind you ------------------ */
