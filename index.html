@@ -941,39 +941,31 @@
   if (reduce || !('IntersectionObserver' in window)) {
     // markup already holds the final figures, so there is nothing to do
   } else {
-    // Observe the ROW, never the numbers. A counting digit changes its own
-    // width, which reflows the grid; observing the numbers themselves makes
-    // that reflow re-trigger the observer, and they restart forever.
-    var rows = [].slice.call(document.querySelectorAll('.proof'));
-    var state = new WeakMap();
-
+    // Observe the ROW, never the numbers: a counting digit changes its own
+    // width, that reflows the grid, and observing the numbers themselves
+    // makes the reflow re-trigger the observer so they restart forever.
+    //
+    // Each row counts ONCE, the first time it is reached, then stops being
+    // watched. Re-running on every scroll-past made the figures reset over
+    // and over, which reads as a broken page rather than a nice touch.
     var rowObs = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
         var row = e.target;
-        var st = state.get(row) || { on: false, at: 0 };
-        var figs = [].slice.call(row.querySelectorAll('b[data-to]'));
-
-        if (e.isIntersecting) {
-          if (st.on) return;
-          if (Date.now() - st.at < 1200) return;      // cooldown, stops churn
-          state.set(row, { on: true, at: Date.now() });
-          figs.forEach(function (el, i) { countUp(el, i * 110); });
-        } else {
-          if (!st.on) return;
-          state.set(row, { on: false, at: Date.now() });
-          figs.forEach(settle);
-        }
+        rowObs.unobserve(row);
+        [].slice.call(row.querySelectorAll('b[data-to]'))
+          .forEach(function (el, i) { countUp(el, i * 120); });
       });
     }, { threshold: 0.3 });
 
-    rows.forEach(function (r) { rowObs.observe(r); });
+    document.querySelectorAll('.proof').forEach(function (r) { rowObs.observe(r); });
 
-    // Last resort: nothing may sit on a part-counted figure indefinitely.
+    // Safety net: a figure must never be left sitting on a part-counted value.
     setInterval(function () {
       nums.forEach(function (el) {
         if (!el._raf && !el._timer && el.textContent !== el._final) settle(el);
       });
-    }, 2500);
+    }, 2000);
   }
 
   /* ---- glass nav drops in once the hero is behind you ------------------ */
