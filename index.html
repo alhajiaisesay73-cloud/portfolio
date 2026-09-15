@@ -1089,6 +1089,7 @@
   function settle(el) {
     if (el._raf) { cancelAnimationFrame(el._raf); el._raf = null; }
     if (el._timer) { clearTimeout(el._timer); el._timer = null; }
+    if (el._dead) { clearTimeout(el._dead); el._dead = null; }
     el.textContent = el._final;
   }
 
@@ -1099,6 +1100,13 @@
     var dur = 1500, start = null;
     if (el._raf) cancelAnimationFrame(el._raf);
     if (el._timer) clearTimeout(el._timer);
+    if (el._dead) clearTimeout(el._dead);
+
+    // requestAnimationFrame is PAUSED in a hidden tab. Starting a count there
+    // parks the figure on a part-counted value with a frame permanently
+    // pending, which then defeats any check that trusts _raf. So a page that
+    // is not being looked at simply keeps the real number.
+    if (document.hidden) { el.textContent = el._final; return; }
 
     function frame(t) {
       if (start === null) start = t;
@@ -1110,9 +1118,15 @@
     }
     el._timer = setTimeout(function () {
       el._timer = null;
+      if (document.hidden) { el.textContent = el._final; return; }
       el.textContent = pre + '0' + suf;            // zero only as it starts
       el._raf = requestAnimationFrame(frame);
     }, delay || 0);
+
+    // Hard stop on a plain timer. Whatever happens to the frames, including
+    // never being served at all, the figure lands on its real value.
+    el._dead = setTimeout(function () { el._dead = null; settle(el); },
+                          (delay || 0) + dur + 400);
   }
 
   if (reduce || !('IntersectionObserver' in window)) {
@@ -1140,9 +1154,17 @@
     // Safety net: a figure must never be left sitting on a part-counted value.
     setInterval(function () {
       nums.forEach(function (el) {
-        if (!el._raf && !el._timer && el.textContent !== el._final) settle(el);
+        if (el.textContent !== el._final && !el._timer && !el._dead) settle(el);
       });
     }, 2000);
+
+    // Coming back to the tab must never reveal a stalled figure.
+    document.addEventListener('visibilitychange', function () {
+      if (document.hidden) return;
+      nums.forEach(function (el) {
+        if (el._raf && el.textContent !== el._final) settle(el);
+      });
+    });
   }
 
   /* ---- glass nav drops in once the hero is behind you ------------------ */
