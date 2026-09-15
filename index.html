@@ -240,6 +240,31 @@
   .tile b { display: block; font-size: 30px; font-weight: 700; letter-spacing: -0.028em; font-variant-numeric: tabular-nums; line-height: 1.1; }
   .tile span { display: block; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--hero-dim); margin-top: 7px; }
 
+  /* ---- the three lanes */
+  .lanes {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 30px;
+    counter-reset: lane;
+  }
+  .lane {
+    position: relative; padding: 22px 22px 20px; border-radius: var(--r);
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.13);
+    border-top: 2px solid var(--blue-lift);
+    backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+    transition: transform 0.4s var(--ease), background 0.4s var(--ease), border-color 0.4s var(--ease);
+  }
+  .lane:hover { transform: translateY(-4px); background: rgba(255,255,255,0.09); }
+  .lane::before {
+    counter-increment: lane; content: "0" counter(lane);
+    display: block; font-size: 11.5px; font-weight: 700; letter-spacing: 0.16em;
+    color: var(--blue-lift); margin-bottom: 11px;
+  }
+  .lane b { display: block; font-size: 17.5px; font-weight: 600; color: var(--hero-text);
+            letter-spacing: -0.012em; line-height: 1.25; margin-bottom: 8px; }
+  .lane span { display: block; font-size: 14.5px; line-height: 1.55; color: var(--hero-dim); }
+  .lanes-note { color: var(--hero-dim); font-size: 15.5px; margin: 18px 0 0; max-width: 88ch; }
+  .lanes-note b { color: var(--hero-text); font-weight: 600; }
+  @media (max-width: 860px) { .lanes { grid-template-columns: 1fr; gap: 12px; } }
+
   /* same tile, on the light ground of a body section */
   .proof.light { margin-top: 30px; }
   .proof.light .tile {
@@ -477,13 +502,32 @@
     </div>
     <h1 class="rise rise-4">AI systems that <em>drive ROI</em></h1>
     <p class="sub rise rise-5">
-      An automation is only worth paying for if it does one of three things. It wins you
-      customers you were not winning before. It makes a customer you already have worth more
-      than they were. Or it takes hours of manual work off your people and hands the time back.
-      Everything else is a demo. I build in those three lanes, across whatever the business
-      actually runs on, and the test is the same every time. Did the profit line move, and can
-      you see exactly where it moved. Below is the work, the clients' own words, and the numbers
-      from live accounts.
+      An automation is only worth paying for if it does one of three things. Everything else is
+      a demo.
+    </p>
+
+    <div class="lanes rise rise-5">
+      <div class="lane">
+        <b>Win customers you were not winning</b>
+        <span>Lead capture, qualification and outbound that fills the pipeline with people worth
+        talking to, and answers them before a competitor does.</span>
+      </div>
+      <div class="lane">
+        <b>Make each customer worth more</b>
+        <span>Follow-up, lifecycle and reactivation that turns the customer who spent two
+        thousand with you into the one who spends three.</span>
+      </div>
+      <div class="lane">
+        <b>Hand the manual hours back</b>
+        <span>Triage, reporting, document work and the back-office jobs that quietly eat a day
+        of somebody's week, running without anybody watching them.</span>
+      </div>
+    </div>
+
+    <p class="lanes-note rise rise-5">
+      I build in those three lanes, across whatever the business already runs on. The test is the
+      same every time. <b>Did the profit line move, and can you see exactly where it moved.</b>
+      Below is the work, the clients' own words, and the numbers from live accounts.
     </p>
 
   </div>
