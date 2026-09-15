@@ -204,7 +204,7 @@
   h1 {
     font-size: clamp(34px, 7.4vw, 80px);
     font-weight: 700; line-height: 1.04; letter-spacing: -0.03em;
-    text-wrap: balance; margin: 30px 0 0; max-width: 100%;
+    text-wrap: balance; margin: 38px 0 0; max-width: 100%;
   }
   h1 { color: var(--hero-text); }
   h1 em { font-style: normal; position: relative; display: inline-block; color: var(--blue-lift); }
@@ -227,7 +227,7 @@
   }
 
   /* ---- stat glass tiles */
-  .proof { display: grid; grid-template-columns: repeat(auto-fit, minmax(158px, 1fr)); gap: 14px; margin-top: 44px; }
+  .proof { display: grid; grid-template-columns: repeat(auto-fit, minmax(158px, 1fr)); gap: 14px; margin-top: 34px; }
   .tile {
     background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.14);
     border-radius: var(--r); padding: 20px 20px 17px; color: var(--hero-text);
@@ -468,8 +468,14 @@
     <span class="badge rise rise-1"><i></i> Top Rated Plus · Available now</span>
     <p class="mark rise rise-2">ALHAJI SESAY<span>AI Automation Consultant</span></p>
 
-    <h1 class="rise rise-3">AI systems that <em>drive ROI</em></h1>
-    <p class="sub rise rise-4">
+    <div class="proof rise rise-3">
+      <div class="tile"><b data-to="100" data-suffix="%">100%</b><span>Job success score</span></div>
+      <div class="tile"><b data-to="44" data-suffix="+">44+</b><span>Jobs completed</span></div>
+      <div class="tile"><b data-to="4000" data-suffix="+">4,000+</b><span>Hours delivered</span></div>
+      <div class="tile"><b data-to="40" data-prefix="$" data-suffix="K+">$40K+</b><span>Earned on Upwork</span></div>
+    </div>
+    <h1 class="rise rise-4">AI systems that <em>drive ROI</em></h1>
+    <p class="sub rise rise-5">
       An automation is only worth paying for if it does one of three things. It wins you
       customers you were not winning before. It makes a customer you already have worth more
       than they were. Or it takes hours of manual work off your people and hands the time back.
@@ -479,12 +485,6 @@
       from live accounts.
     </p>
 
-    <div class="proof rise rise-5">
-      <div class="tile"><b data-to="100" data-suffix="%">100%</b><span>Job success score</span></div>
-      <div class="tile"><b data-to="44" data-suffix="+">44+</b><span>Jobs completed</span></div>
-      <div class="tile"><b data-to="4000" data-suffix="+">4,000+</b><span>Hours delivered</span></div>
-      <div class="tile"><b data-to="40" data-prefix="$" data-suffix="K+">$40K+</b><span>Earned on Upwork</span></div>
-    </div>
   </div>
 </header>
 
