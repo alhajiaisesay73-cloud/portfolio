@@ -262,12 +262,21 @@
   }
   .chip.muted { background: var(--fill); color: var(--text-faint); border-color: var(--border); }
 
+  /* Scroll reveal moves the block, and NEVER touches opacity.
+     Fading on a scroll timeline strands anything taller than the viewport at
+     its start value, which left whole sections sitting at 0.16 opacity and
+     effectively invisible. Text is always fully opaque; only the rise is
+     driven by scroll, so the worst case is simply no animation. */
   @supports (animation-timeline: view()) {
     @media (prefers-reduced-motion: no-preference) {
-      .reveal { animation: reveal-in linear both; animation-timeline: view(); animation-range: entry 2% cover 20%; }
+      .reveal {
+        animation: reveal-in linear both;
+        animation-timeline: view();
+        animation-range: entry 0% entry 60%;
+      }
     }
   }
-  @keyframes reveal-in { from { opacity: 0.16; transform: translateY(30px); } to { opacity: 1; transform: none; } }
+  @keyframes reveal-in { from { transform: translateY(24px); } to { transform: none; } }
 
   /* ========================================================== evidence plates */
   figure { margin: 28px 0 0; }
@@ -983,7 +992,7 @@
       entries.forEach(function (e) {
         if (!e.isIntersecting) return;
         e.target.animate(
-          [{ opacity: 0.16, transform: 'translateY(30px)' }, { opacity: 1, transform: 'none' }],
+          [{ transform: 'translateY(24px)' }, { transform: 'none' }],
           { duration: 680, easing: 'cubic-bezier(0.16,1,0.3,1)', fill: 'both' }
         );
         io.unobserve(e.target);
