@@ -351,6 +351,28 @@
   tbody tr:hover td { background: var(--blue-soft); color: var(--text); }
   td:first-child { color: var(--navy); font-weight: 500; }
 
+  .grid3 {
+    display: grid; gap: 22px; margin-top: 34px;
+    grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+  }
+  .cap {
+    border: 1px solid var(--line); border-radius: 14px; padding: 24px 22px;
+    background: #fff; transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease), border-color 0.3s ease;
+  }
+  .cap:hover { transform: translateY(-3px); border-color: var(--blue); box-shadow: 0 14px 34px rgba(13,27,42,0.09); }
+  .cap h3 { margin: 0 0 8px; font-size: 1.04rem; }
+  .cap p { margin: 0; font-size: 0.95rem; }
+  .cap .tag {
+    display: block; font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--blue); font-weight: 700; margin-bottom: 10px;
+  }
+  .stack {
+    margin-top: 30px; display: flex; flex-wrap: wrap; gap: 8px;
+  }
+  .stack span {
+    border: 1px solid var(--line); border-radius: 100px; padding: 6px 14px;
+    font-size: 0.82rem; background: #fff;
+  }
   .grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 32px; margin-top: 28px; }
   .grid2 > div { min-width: 0; }
   .grid2 p, .grid2 ul { max-width: none; }
@@ -420,10 +442,11 @@
   <div class="nav-inner">
     <span class="who">ALHAJI SESAY</span>
     <span class="links">
+      <a href="#build">What I build</a>
       <a href="#reviews">Reviews</a>
       <a href="#casaloce">Casa Locé</a>
-      <a href="#echo">Echo Journal</a>
-      <a href="#igleads">Instagram DMs</a>
+      <a href="#igleads">Lead systems</a>
+      <a href="#aios">My own AIOS</a>
       <a href="#principles">How I build</a>
       <a class="pill" href="https://calendly.com/alhajis/one-on-one-with-alhaji">Book a call</a>
     </span>
@@ -437,9 +460,10 @@
 
     <h1 class="rise rise-3">Automation that is <em>built to be left running</em>.</h1>
     <p class="sub rise rise-4">
-      Anyone can demo a chatbot. The work is what happens on the Tuesday it gets a message
-      it was not expecting, at two in the morning, while you are asleep. This is a portfolio
-      of systems built for that, with the evidence attached.
+      AI agents, CRM and booking pipelines, outbound and lead systems, content operations.
+      Anyone can demo one of these in an afternoon. The work is what happens on the Tuesday it
+      meets something it was not expecting, at two in the morning, while you are asleep. This
+      is a portfolio of systems built for that, with the evidence attached.
     </p>
 
     <div class="proof rise rise-5">
@@ -451,6 +475,85 @@
   </div>
 </header>
 
+<!-- ============================================================ what I build -->
+<section id="build">
+  <div class="wrap">
+    <div class="reveal">
+      <p class="eyebrow">The range</p>
+      <h2>Six kinds of system, one way of building them</h2>
+      <p class="lead">
+        A conversation is only ever the front door. What makes a build worth paying for is the
+        part behind it: the record that gets written, the calendar that gets checked, the person
+        who gets told, and the trail that proves which enquiry turned into which customer.
+      </p>
+    </div>
+
+    <div class="grid3">
+      <div class="cap reveal">
+        <span class="tag">AI agents</span>
+        <h3>Agents that act, not just answer</h3>
+        <p>
+          An agent that can only talk is a brochure. Mine look the person up in the CRM, check
+          real availability, write the booking, create the deal and hand off to a human when
+          they are out of their depth.
+        </p>
+      </div>
+      <div class="cap reveal">
+        <span class="tag">CRM</span>
+        <h3>CRM and pipeline automation</h3>
+        <p>
+          GoHighLevel and HubSpot. Stages that reflect how the business actually sells, lead
+          source on every card, ownership and follow-up that fires without anyone remembering
+          to set a reminder.
+        </p>
+      </div>
+      <div class="cap reveal">
+        <span class="tag">Booking</span>
+        <h3>Booking and scheduling</h3>
+        <p>
+          Cal.com, Calendly and native CRM calendars. Real availability rather than invented
+          slots, timezone handled properly, confirmation and reminders attached, and the booking
+          landing in the CRM as revenue rather than as a calendar entry.
+        </p>
+      </div>
+      <div class="cap reveal">
+        <span class="tag">Lead systems</span>
+        <h3>Lead capture, qualification and routing</h3>
+        <p>
+          Comments, DMs, forms and ads into one qualified queue. Scored, routed by what the
+          person actually needs, and attributed from the first touch through to the booked call.
+        </p>
+      </div>
+      <div class="cap reveal">
+        <span class="tag">Outreach</span>
+        <h3>Follow-up and outbound agents</h3>
+        <p>
+          Sequences written for the individual out of their own answers rather than merged into
+          a template. Including knowing when to stop, and saying so, which is the part almost
+          every sequence gets wrong.
+        </p>
+      </div>
+      <div class="cap reveal">
+        <span class="tag">Operations</span>
+        <h3>Content and back-office operations</h3>
+        <p>
+          Newsletters, publishing pipelines, inbox triage, document generation and digests into
+          Slack with a searchable archive behind them. The unglamorous work that quietly eats a
+          day a week.
+        </p>
+      </div>
+    </div>
+
+    <div class="stack reveal">
+      <span>n8n</span><span>Make</span><span>ManyChat</span><span>GoHighLevel</span>
+      <span>HubSpot</span><span>Klaviyo</span><span>Cal.com</span><span>Calendly</span>
+      <span>Supabase</span><span>Postgres</span><span>Claude API</span><span>OpenAI API</span>
+      <span>Shopify</span><span>Pinecone</span><span>Slack</span><span>Google Workspace</span>
+      <span>Airtable</span><span>Twilio</span>
+    </div>
+  </div>
+</section>
+
 <!-- ============================================================ reviews -->
 <section id="reviews">
   <div class="wrap">
@@ -458,8 +561,9 @@
       <p class="eyebrow">Client reviews</p>
       <h2>Every word below is on my Upwork profile</h2>
       <p class="lead">
-        Real reviews, real ratings, real dates and real contract values. Nothing here is
+        Real reviews, real ratings, real dates, real contract titles. Nothing here is
         paraphrased, and you can check all of it against the profile in one click.
+        Contract values are deliberately left out.
       </p>
     </div>
 
@@ -467,41 +571,41 @@
       <blockquote class="rev reveal">
         <div class="stars">★★★★★<b>5.0</b></div>
         <q>Alhaji was excellent. He understood the brief immediately, knew exactly how ManyChat's native Claude integration worked, and fixed everything cleanly. Clear communication throughout, fast turnaround, and the system works perfectly.</q>
-        <footer><b>ManyChat Instagram DM Automation, Claude API Fix</b>Jun 2026 · $294 fixed price</footer>
+        <footer><b>ManyChat Instagram DM Automation, Claude API Fix</b>Jun 2026 </footer>
       </blockquote>
 
       <blockquote class="rev reveal">
         <div class="stars">★★★★★<b>5.0</b></div>
         <q>My experience with Alhaji was efficient, effective, and coordinated. He assisted us in organizing our Manychat automations and created more extensive follow up sequences and segmentation for cold inbound leads.</q>
-        <footer><b>ManyChat Automation Cleanup</b>Jun 2026 · $800 fixed price</footer>
+        <footer><b>ManyChat Automation Cleanup</b>Jun 2026 </footer>
       </blockquote>
 
       <blockquote class="rev reveal">
         <div class="stars">★★★★★<b>5.0</b></div>
         <q>Incredible experience I will return! Very responsive and knowledgeable !!!</q>
-        <footer><b>Instagram DM system in ManyChat: media delivery fix, voice-note flows, AI intent routing</b>Jul 2026 · $700 fixed price</footer>
+        <footer><b>Instagram DM system in ManyChat: media delivery fix, voice-note flows, AI intent routing</b>Jul 2026 </footer>
       </blockquote>
 
       <blockquote class="rev reveal">
         <div class="stars">★★★★★<b>5.0</b></div>
         <q>Great to work with, definitely recommend Alhaji</q>
-        <footer><b>ManyChat flow for a keyword in a comment or DM</b>Jul 2026 · $105 fixed price</footer>
+        <footer><b>ManyChat flow for a keyword in a comment or DM</b>Jul 2026 </footer>
       </blockquote>
 
       <blockquote class="rev reveal">
         <div class="stars">★★★★★<b>5.0</b></div>
         <q>Very satisfied with the collaboration! Clear communication, professional approach, and excellent results. I would be happy to work together again.</q>
-        <footer><b>Long-term mobile app testing</b>2025 · $60 fixed price</footer>
+        <footer><b>Long-term mobile app testing</b>2025 </footer>
       </blockquote>
 
     </div>
 
     <div class="reveal">
       <figure>
-        <button class="plate" type="button" data-full="img/upwork-review-john.png" data-cap="Straight off the Upwork profile: the contract, the 5.0 rating, the dates and the client's own words.">
-          <img src="img/upwork-review-john.png" alt="Upwork review card showing a 5.0 rating and the client comment: Great to work with, definitely recommend Alhaji">
+        <button class="plate" type="button" data-full="img/upwork-reviews.png" data-cap="Five consecutive contracts, captured straight off the Upwork profile. Contract values removed on purpose; everything else is untouched.">
+          <img src="img/upwork-reviews.png" alt="Five Upwork review cards, each showing a 5.0 rating, the contract title, the dates, the client comment and the skills the client endorsed">
         </button>
-        <figcaption>Straight off the Upwork profile. The contract, the 5.0 rating, the dates and the client's own words.</figcaption>
+        <figcaption>Five consecutive contracts, captured straight off the Upwork profile. Contract values removed on purpose. Everything else is untouched: the titles, the dates, the ratings, the clients' own words and the skills they endorsed.</figcaption>
       </figure>
     </div>
 
@@ -593,12 +697,6 @@
 
     <div class="grid2">
       <div class="reveal">
-        <figure>
-          <button class="plate" type="button" data-full="img/casaloce-receiver.png" data-cap="Chat Receiver, rendered from the live workflow export. Validate, look up in HubSpot, then route on guest state.">
-            <img src="img/casaloce-receiver.png" alt="Diagram of the Casa Loce Chat Receiver workflow with a four-way route on guest status">
-          </button>
-          <figcaption>Chat Receiver, rendered from the live workflow export.</figcaption>
-        </figure>
         <h3>It knows who it is talking to</h3>
         <p>
           Before the AI is involved at all, the system looks the guest up and routes on what it
@@ -607,12 +705,6 @@
         </p>
       </div>
       <div class="reveal">
-        <figure>
-          <button class="plate" type="button" data-full="img/casaloce-agent.png" data-cap="Conversation Agent. Claude Sonnet with Postgres-backed memory, a parsing step, a CRM write, then a route on what the guest needs.">
-            <img src="img/casaloce-agent.png" alt="Diagram of the Casa Loce Conversation Agent workflow with Claude, Postgres memory and a four-way action route">
-          </button>
-          <figcaption>Conversation Agent. Claude Sonnet with Postgres-backed memory.</figcaption>
-        </figure>
         <h3>The model is fenced in</h3>
         <ul>
           <li><b>It knows the date.</b> Real Los Angeles time is fetched and injected, so "this Friday" resolves correctly.</li>
@@ -838,6 +930,73 @@
   </div>
 </section>
 
+<!-- ============================================================ aios -->
+<section id="aios">
+  <div class="wrap">
+    <div class="reveal">
+      <p class="eyebrow">My own operating system</p>
+      <h2>I run my business on one of these too</h2>
+      <span class="chip">Live, in daily use</span>
+      <p class="lead">
+        Most people selling automation run their own business out of a notes app. I do not. The
+        system below finds the work, scores it, queues it, and refuses to spend a penny of my
+        money or a word of my name without me pressing a button.
+      </p>
+    </div>
+
+    <div class="reveal">
+      <figure>
+        <button class="plate" type="button" data-full="img/aios-dashboard.png" data-cap="The live queue. Every opportunity scored before I see it, every stage tracked, and nothing drafted until I ask for it. Spend figures removed.">
+          <img src="img/aios-dashboard.png" alt="A live proposal queue dashboard showing scored opportunities, pipeline stages from draft through applied, and captured screening questions">
+        </button>
+        <figcaption>The live queue. Scored before I see it, tracked to the outcome, and nothing written until I ask. My own spend figures are removed.</figcaption>
+      </figure>
+    </div>
+
+    <div class="grid2">
+      <div class="reveal">
+        <h3>The expensive part happens last</h3>
+        <p>
+          Everything cheap runs first. Hard rules in plain code throw out most of what comes in
+          at no cost at all, and only what survives gets scored against a rubric. The AI is the
+          last thing to be woken up, not the first.
+        </p>
+        <p>
+          That ordering is the whole discipline, and it is the same one I apply to a client
+          build. If a filter can answer it, a filter should answer it. Every model call you make
+          out of laziness is a bill you pay forever.
+        </p>
+      </div>
+      <div class="reveal">
+        <h3>It never speaks for me on its own</h3>
+        <p>
+          It finds, filters, scores and queues without supervision. It does not write and it does
+          not send. Anything that would go out under my name waits behind a button, and the
+          outcome comes back into the system afterwards so the numbers it reports are real ones.
+        </p>
+        <p>
+          When somebody asks me to build them an agent that contacts their customers, this is the
+          shape I argue for. Full autonomy up to the point where it would be embarrassing, then a
+          human.
+        </p>
+      </div>
+    </div>
+
+    <div class="callout reveal">
+      <strong>Why this is in a portfolio at all</strong>
+      <p>
+        Because it is the honest version of the pitch. A system I use every day, that I have had
+        to live with the consequences of, tells you more about how I build than a demo that was
+        assembled to be looked at once.
+      </p>
+      <p>
+        If you want the same thing pointed at your pipeline instead of mine, that is a normal
+        piece of work and it is one of the most common things I get asked for now.
+      </p>
+    </div>
+  </div>
+</section>
+
 <!-- ============================================================ principles -->
 <section id="principles">
   <div class="wrap">
@@ -865,9 +1024,9 @@
     </div>
 
     <p class="reveal">
-      I work across n8n, ManyChat, GoHighLevel, HubSpot, Klaviyo, Cal.com, Supabase, the Claude
-      and OpenAI APIs, Shopify and Google Workspace. The tools matter less than whether the
-      thing still works in three months when nobody is watching it.
+      The tools are listed at the top of this page and they matter less than the list suggests.
+      What matters is whether the thing still works in three months, when nobody is watching it
+      and the person who built it has moved on.
     </p>
   </div>
 </section>
