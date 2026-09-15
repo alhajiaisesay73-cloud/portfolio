@@ -941,32 +941,39 @@
   if (reduce || !('IntersectionObserver' in window)) {
     // markup already holds the final figures, so there is nothing to do
   } else {
-    var running = new WeakMap();
-    var numObs = new IntersectionObserver(function (entries) {
+    // Observe the ROW, never the numbers. A counting digit changes its own
+    // width, which reflows the grid; observing the numbers themselves makes
+    // that reflow re-trigger the observer, and they restart forever.
+    var rows = [].slice.call(document.querySelectorAll('.proof'));
+    var state = new WeakMap();
+
+    var rowObs = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {
-        var el = e.target;
+        var row = e.target;
+        var st = state.get(row) || { on: false, at: 0 };
+        var figs = [].slice.call(row.querySelectorAll('b[data-to]'));
+
         if (e.isIntersecting) {
-          if (running.get(el)) return;
-          running.set(el, true);
-          var row = el.closest('.proof') || el.parentElement;
-          var peers = [].slice.call(row.querySelectorAll('b[data-to]'));
-          countUp(el, Math.max(0, peers.indexOf(el)) * 110);
+          if (st.on) return;
+          if (Date.now() - st.at < 1200) return;      // cooldown, stops churn
+          state.set(row, { on: true, at: Date.now() });
+          figs.forEach(function (el, i) { countUp(el, i * 110); });
         } else {
-          // Leaving view cancels and restores the real figure, so a counter
-          // interrupted part-way can never be left reading zero.
-          running.set(el, false);
-          settle(el);
+          if (!st.on) return;
+          state.set(row, { on: false, at: Date.now() });
+          figs.forEach(settle);
         }
       });
-    }, { threshold: 0.25 });
-    nums.forEach(function (el) { numObs.observe(el); });
+    }, { threshold: 0.3 });
 
-    // Belt and braces: if anything is still mid-count after 6s, settle it.
-    setTimeout(function () {
+    rows.forEach(function (r) { rowObs.observe(r); });
+
+    // Last resort: nothing may sit on a part-counted figure indefinitely.
+    setInterval(function () {
       nums.forEach(function (el) {
-        if (el.textContent !== el._final && !el._raf && !el._timer) settle(el);
+        if (!el._raf && !el._timer && el.textContent !== el._final) settle(el);
       });
-    }, 6000);
+    }, 2500);
   }
 
   /* ---- glass nav drops in once the hero is behind you ------------------ */
