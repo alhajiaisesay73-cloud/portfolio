@@ -551,12 +551,7 @@
   <div class="wrap">
     <div class="reveal">
       <p class="eyebrow">Client reviews</p>
-      <h2>Every word below is on my Upwork profile</h2>
-      <p class="lead">
-        Real reviews, real ratings, real dates, real contract titles. Nothing here is
-        paraphrased, and you can check all of it against the profile in one click.
-        Contract values are deliberately left out.
-      </p>
+      <h2>What clients said</h2>
     </div>
 
     <div class="reviews">
@@ -592,19 +587,7 @@
 
     </div>
 
-    <div class="reveal">
-      <figure>
-        <button class="plate" type="button" data-full="img/upwork-reviews.png" data-cap="Five consecutive contracts, captured straight off the Upwork profile. Contract values removed on purpose; everything else is untouched.">
-          <img src="img/upwork-reviews.png" alt="Five Upwork review cards, each showing a 5.0 rating, the contract title, the dates, the client comment and the skills the client endorsed">
-        </button>
-        <figcaption>Five consecutive contracts, captured straight off the Upwork profile. Contract values removed on purpose. Everything else is untouched: the titles, the dates, the ratings, the clients' own words and the skills they endorsed.</figcaption>
-      </figure>
-    </div>
-
     <p class="reveal" style="margin-top:22px">
-      The clients most often endorse the same four things: committed to quality, clear
-      communicator, solution oriented, detail oriented. Those are Upwork's own tags,
-      counted from completed contracts, not words I chose for myself.
       <a href="https://www.upwork.com/freelancers/~01ac8df0eb07c83fa9" target="_blank" rel="noopener">See the full profile</a>.
     </p>
   </div>
@@ -616,7 +599,6 @@
     <div class="reveal">
       <p class="eyebrow">Production evidence</p>
       <h2>The numbers that are actually mine</h2>
-      <p class="lead">Two screens from live client accounts. I have blurred the names, not the figures.</p>
 
       <div class="proof light">
         <div class="tile"><b data-to="2637">2,637</b><span>Sends, one ManyChat flow</span></div>
@@ -665,8 +647,8 @@
       <h2>Casa Locé Winery</h2>
       <span class="chip">Live in production</span>
       <p class="lead">
-        An AI concierge that answers questions about the wine, recommends the right tasting,
-        and books it. Five workflows on n8n, all monitored.
+        A concierge that answers questions about the wine, recommends the right tasting,
+        and books the table. At any hour, without anybody on the other end.
       </p>
       <p>
         They had an agent already. It was slow, it could not actually book, and it sent people
@@ -680,18 +662,18 @@
       <div class="reveal">
         <h3>It knows who it is talking to</h3>
         <p>
-          Before the AI is involved at all, the system looks the guest up and routes on what it
-          finds. New, returning, already booked, or disqualified. Someone who has already
-          reserved a table gets a warm reply, not another sales pitch.
+          It recognises the guest before it says a word. A first-time visitor, a returning
+          customer, somebody who has already booked, or somebody who is not a fit. A guest with
+          a table already reserved gets a warm welcome, not another sales pitch.
         </p>
       </div>
       <div class="reveal">
-        <h3>The model is fenced in</h3>
+        <h3>It is not allowed to improvise</h3>
         <ul>
-          <li><b>It knows the date.</b> Real Los Angeles time is fetched and injected, so "this Friday" resolves correctly.</li>
-          <li><b>The reply format is a contract.</b> Structured JSON every turn, with a fallback that wraps plain text instead of crashing.</li>
-          <li><b>It cannot book on its own say-so.</b> Code re-checks all five details before a booking fires.</li>
-          <li><b>It only offers real times.</b> Actual availability per tier, per weekday.</li>
+          <li><b>It knows what day it is.</b> Ask for this Friday and you get this Friday, in the winery's own time.</li>
+          <li><b>It only offers times that are genuinely free.</b> Nobody is ever promised a table that does not exist.</li>
+          <li><b>It cannot book on a hunch.</b> Every detail is checked again before a reservation is confirmed.</li>
+          <li><b>It does not fall over.</b> If something unexpected comes back, the guest still gets a sensible reply.</li>
         </ul>
       </div>
     </div>
@@ -722,8 +704,8 @@
         <h3>The bug was not where it looked</h3>
         <p>
           A video that will not send looks like a broken file or a platform limit. It was neither.
-          Delivery was tied to a button interaction that most people never triggered, so the flow
-          ran to completion and reported success without ever sending the thing it promised.
+          The video only went out if the person tapped a particular button, and almost nobody did.
+          So the automation ran to the end, reported success, and quietly sent nothing.
         </p>
         <p>
           That is the failure mode worth paying someone to find. Nothing errors. Nothing alerts.
@@ -733,11 +715,11 @@
       <div class="reveal">
         <h3>What shipped</h3>
         <ul>
-          <li><b>One master template.</b> Every keyword flow inherits from it, so a change to the message is one edit rather than fourteen.</li>
-          <li><b>Routing by audience temperature.</b> Cold traffic to the free community as the entry point, the paid tier sold from inside it rather than to a stranger.</li>
-          <li><b>Intent routing.</b> Ask whether it is a bot and you get a short video of him answering, in his own voice, instead of a denial from a script.</li>
-          <li><b>Personal contacts fenced off.</b> Tagged and excluded, so friends messaging him never fall into a sales sequence or fire an alert.</li>
-          <li><b>Alerts into Slack, and a written SOP.</b> He runs it now. That was the point.</li>
+          <li><b>One message, changed in one place.</b> Every reply comes from a single master version, so rewording it is one edit instead of fourteen.</li>
+          <li><b>New people and warm people go different ways.</b> Strangers are invited into the free community first. The paid offer is made to people who already know him.</li>
+          <li><b>Ask if it is a bot and he answers.</b> A short clip of him replying in his own voice, rather than a denial from a script.</li>
+          <li><b>Friends never get sold to.</b> Personal contacts are fenced off, so a message from a mate never lands in a sales sequence.</li>
+          <li><b>He runs it now.</b> Alerts arrive where his team already works, and the whole thing is written down so he is not dependent on me.</li>
         </ul>
       </div>
     </div>
@@ -768,24 +750,22 @@
         <button class="plate" type="button" data-full="img/manychat-flows.jpg" data-cap="Live comment automations on the account. Each one published and running, triggered by a keyword in a comment.">
           <img src="img/manychat-flows.jpg" alt="ManyChat comment automations folder showing live flows triggered by post and reel comments">
         </button>
-        <figcaption>Live comment automations on the account, each published and running.</figcaption>
+        <figcaption>The live comment replies on his account, each one running.</figcaption>
       </figure>
     </div>
 
     <div class="reveal">
-      <h3>The platform limitation that shaped everything</h3>
+      <h3>The catch nobody mentions up front</h3>
       <p>
-        ManyChat has no Substack integration, and more importantly it cannot detect whether
-        somebody actually subscribed. So the obvious design does not work. You cannot send a
-        link, wait, and follow up only with the people who ignored it, because that information
-        does not exist on the ManyChat side.
+        The tool his account runs on has no way of knowing whether somebody actually subscribed.
+        So the obvious plan does not work. You cannot send the link, wait, and then chase only
+        the people who ignored it, because nobody knows who ignored it.
       </p>
       <p>
-        I built the confirmation into the conversation instead. A button that says they have
-        just subscribed, which tags them and pulls them out of follow-up. It depends on somebody
-        pressing a button, so it is not perfect, and I describe it as exactly that. But it fails
-        in the safe direction: a subscriber who skips the button gets one more nudge, not a week
-        of them.
+        I built the confirmation into the conversation instead. One tap to say they have joined,
+        which takes them straight out of the follow-up. It relies on somebody tapping, so it is
+        not perfect, and I told him that plainly. But it errs in the safe direction. A subscriber
+        who skips the tap gets one more nudge, not a week of them.
       </p>
 
       <div class="callout">
@@ -798,6 +778,12 @@
         <p>That is what an unbuilt funnel costs you annually, and it is the only number that decides whether this is worth doing.</p>
       </div>
     </div>
+
+    <blockquote class="rev reveal" style="margin-top:26px">
+      <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;<b>5.0</b></div>
+      <q>My experience with Alhaji was efficient, effective, and coordinated. He assisted us in organizing our Manychat automations and created more extensive follow up sequences and segmentation for cold inbound leads.</q>
+      <footer><b>ManyChat Automation Cleanup</b>Jun 2026 </footer>
+    </blockquote>
   </div>
 </section>
 
@@ -809,8 +795,8 @@
       <h2>Instagram DM Lead Qualification</h2>
       <span class="chip muted">My own system, not a client deployment</span>
       <p class="lead">
-        Seven workflows that take somebody from a comment on a post to a booked call, and then
-        prove which comment produced which booking.
+        A system that carries somebody from a comment on a post to a booked call, and then
+        shows you which comment produced which booking.
       </p>
     </div>
 
@@ -819,18 +805,16 @@
         <button class="plate" type="button" data-full="img/n8n-workflows.jpg" data-cap="The workflows on my n8n instance. Each piece is its own workflow rather than one large one. An unrelated client tag is blurred.">
           <img src="img/n8n-workflows.jpg" alt="n8n workflow list showing IGLeads Dashboard, Booking Webhook, Coach Notifier and other workflows">
         </button>
-        <figcaption>The workflows on my n8n instance. An unrelated client tag is blurred.</figcaption>
+        <figcaption>The system running live. An unrelated client name is blurred.</figcaption>
       </figure>
     </div>
 
     <div class="grid2">
       <div class="reveal">
-        <h3>It closes the attribution loop</h3>
+        <h3>You can see which message became which call</h3>
         <p>
-          Every fifteen minutes the system pulls recent Calendly bookings, opens each one and
-          reads the tracking field carried through from the original DM. That value is the
-          Instagram sender ID, so the booking matches straight back to the conversation that
-          produced it.
+          Every new booking is matched back to the conversation that produced it. Not the
+          campaign, not the month. The actual person, and the actual message they sent.
         </p>
         <p>
           Most coaches can tell you how many DMs they got and how many calls they had. Very few
@@ -841,55 +825,13 @@
       <div class="reveal">
         <h3>The last follow-up says it is the last one</h3>
         <p>
-          Quiet leads get Day 1, 3, 5 and 7 messages, each written for that person from their own
-          answers. The Day 7 message is instructed to acknowledge that life gets busy, make one
-          sincere invitation, and say plainly that this is the final follow-up.
+          People who go quiet get four messages over a week, each one written for them from what
+          they actually said. The last one admits that life gets busy, makes one sincere
+          invitation, and says plainly that this is the final follow-up.
         </p>
         <p>
           Most sequences just go silent. Telling someone the door is open and you are going to
           stop messaging is both more honest and more likely to get a reply.
-        </p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============================================================ support agent -->
-<section id="support">
-  <div class="wrap">
-    <div class="reveal">
-      <p class="eyebrow">Own build</p>
-      <h2>AI Customer Support Agent</h2>
-      <span class="chip muted">Built and running, no named client</span>
-      <p class="lead">
-        Reads support email, looks up the real answer in the store's own systems, and replies.
-        When it cannot answer properly, it hands over to a human instead of guessing.
-      </p>
-    </div>
-
-    <div class="reveal">
-      <figure>
-        <button class="plate" type="button" data-full="img/ecom-agent.png" data-cap="The agent mid-execution. Green ticks and item counts on every connection are a real run, not an arranged canvas.">
-          <img src="img/ecom-agent.png" alt="n8n canvas showing the support agent workflow executing successfully with Shopify and Pinecone tools and Slack escalation">
-        </button>
-        <figcaption>The agent mid-execution. Green ticks and item counts are a real run, not an arranged canvas.</figcaption>
-      </figure>
-    </div>
-
-    <div class="reveal">
-      <ul>
-        <li><b>It sorts before it answers.</b> A classifier splits order tracking, stock, general questions and everything else, so the agent is never working out what kind of problem it has while also solving it.</li>
-        <li><b>Three real sources of truth.</b> Live Shopify orders, live Shopify products, and a FAQ vector store. Every answer comes from one of those, never from what the model happens to remember about your business.</li>
-        <li><b>The knowledge base maintains itself.</b> Update the FAQ document in Drive and the index rebuilds.</li>
-        <li><b>It escalates instead of inventing.</b> No confident answer, or a customer asking for a person, and the email goes to Slack with full context.</li>
-      </ul>
-
-      <div class="callout">
-        <strong>The question to ask anyone selling you a support bot</strong>
-        <p>Not "how accurate is it". Ask what it does when it does not know.</p>
-        <p>
-          An agent that answers everything will eventually tell a customer their order shipped
-          when it did not. That one email costs more trust than a hundred fast replies earn.
         </p>
       </div>
     </div>
@@ -905,17 +847,17 @@
       <span class="chip">Live, in daily use</span>
       <p class="lead">
         Most people selling automation run their own business out of a notes app. I do not.
-        Every account I own, across mail, calendar, files and chat, sits behind tooling I
-        wrote, and an assistant can reach all of it in one question instead of four.
+        Every account I own, across mail, calendar, files and chat, sits behind something I
+        built, and I can ask one question instead of checking four places.
       </p>
     </div>
 
     <div class="reveal">
       <figure>
-        <button class="plate" type="button" data-full="img/aios-mcp-server.png" data-cap="The tool definitions from the MCP server I wrote. Every tool carries the description the model reads when it decides which one to use, a typed input schema, and a defined answer for when authentication has expired.">
+        <button class="plate" type="button" data-full="img/aios-mcp-server.png" data-cap="The connector I wrote to reach every one of my accounts. Each action is spelled out, and every way it can fail has an answer written for it in advance.">
           <img src="img/aios-mcp-server.png" alt="Source code of an MCP server showing tool definitions with names, model-facing descriptions, typed input schemas and authentication error handling">
         </button>
-        <figcaption>The tool definitions from the MCP server I wrote. Each one carries the description the model reads when it picks a tool, a typed input schema, and a defined answer for when authentication has expired rather than a crash.</figcaption>
+        <figcaption>The connector I wrote to reach every one of my accounts. Each action is spelled out, and every way it can fail has an answer written for it in advance, rather than a crash.</figcaption>
       </figure>
     </div>
 
@@ -923,24 +865,22 @@
       <div class="reveal">
         <h3>One question, every account</h3>
         <p>
-          Off the shelf, an assistant connects to exactly one Google account. I have several,
-          each with its own mail, calendar and files, and the work is spread across all of
-          them. So I wrote a small server, about four hundred lines with no dependencies,
-          that fronts every account at once.
+          Off the shelf, an assistant reaches exactly one account. I have several, each with its
+          own mail, calendar and files, and the work is spread across all of them. So I built
+          something that reaches every one of them at once.
         </p>
         <p>
-          Every tool takes an account argument: one alias, a list of them, or all. "Any client
-          replies this week" searches all of them and comes back as one answer. Chasing the
-          same question through four inboxes is not a workflow, it is a tax.
+          "Any client replies this week" searches all of them and comes back as a single answer.
+          Chasing the same question through four inboxes is not a workflow, it is a tax.
         </p>
       </div>
       <div class="reveal">
         <h3>Read by default, write on purpose</h3>
         <p>
-          The chat server is the clearest example. It ships with no message-posting tool at
-          all. Sending has to be switched on deliberately, in a config file, by me. That is
-          not caution for its own sake. It means the blast radius of a mistake is a wrong
-          answer on my screen rather than a wrong message in somebody's thread.
+          The chat side is the clearest example. It cannot send a message at all until I turn
+          that on deliberately. That is not caution for its own sake. It means the worst a
+          mistake can do is put a wrong answer on my screen, instead of a wrong message in
+          somebody else's thread.
         </p>
         <p>
           When someone asks me to build an agent that will touch their customers, this is the
@@ -954,27 +894,27 @@
       <div class="reveal">
         <h3>The expensive part happens last</h3>
         <p>
-          Everything cheap runs first. Plain code costs nothing to run, so it does the
-          filtering and the arithmetic, and only what survives is worth waking a model for.
-          The AI is the last thing called, not the first.
+          Everything cheap runs first. The sorting and the counting cost nothing, so they happen
+          up front, and only what survives is worth paying the AI to look at. The AI is the last
+          step, not the first.
         </p>
         <p>
-          That ordering is the whole discipline and it is the same one I apply to a client
-          build. If a filter can answer it, a filter should answer it. Every model call made
-          out of laziness is a bill paid forever.
+          That order is the whole discipline, and it is the same one I apply to a client build.
+          It is why these systems stay cheap to run once they are live. Every unnecessary AI call
+          is a bill you pay forever.
         </p>
       </div>
       <div class="reveal">
         <h3>Written down, not improvised</h3>
         <p>
-          The recurring jobs are written as skills: a trigger, the tools to reach for and in
-          what order, what to do when a record is missing or two sources disagree, and a
-          literal output template the answer has to fill in. A weekly review of my own setup
-          scores it against a fixed rubric and returns the same shape every time.
+          The jobs I repeat are written down properly: what sets them off, what to check and in
+          what order, what to do when something is missing or two sources disagree, and exactly
+          what the answer should look like. A weekly review of my own setup scores it the same
+          way every time.
         </p>
         <p>
-          A written rubric is a rule I can argue with. A feeling is not. One of these runs on
-          a schedule every morning before the working day starts, and the rest run when I ask.
+          A written standard is something I can argue with. A feeling is not. One of these runs
+          every morning before the working day starts, and the rest run when I ask.
         </p>
       </div>
     </div>
@@ -1093,7 +1033,7 @@
           <tr><td>The model is never trusted blindly</td><td>Structured output contracts, parsing that degrades instead of crashing, server-side checks before anything commits</td></tr>
           <tr><td>Model choice is a cost decision</td><td>Sonnet for live conversation where quality is visible, Haiku for follow-ups where it is not</td></tr>
           <tr><td>Monitoring ships with the build</td><td>A dedicated error workflow naming the exact failed node, with a link to that execution</td></tr>
-          <tr><td>Failure is isolated</td><td>One flaky third-party API cannot strand a customer halfway through a booking</td></tr>
+          <tr><td>Failure is isolated</td><td>One outside service having a bad day cannot strand a customer halfway through a booking</td></tr>
           <tr><td>Attribution is built in on day one</td><td>The source travels from first touch to closed deal, because it cannot be reconstructed later</td></tr>
         </tbody>
       </table>
