@@ -518,11 +518,18 @@
 
   var start = Date.now();
 
+  // One id per page load, so the exit beacon updates this view rather than
+  // being counted as a second one.
+  var viewId = (crypto && crypto.randomUUID)
+    ? crypto.randomUUID()
+    : String(Date.now()) + "-" + Math.random().toString(36).slice(2);
+
   function send(extra) {
     var payload = {
       path: location.pathname + location.search,
       referrer: document.referrer || "",
       visitor_id: vid,
+      view_id: viewId,
       tz: tz,
       lang: navigator.language || ""
     };
