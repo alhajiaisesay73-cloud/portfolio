@@ -480,6 +480,69 @@
   }
 </style>
 
+<!-- Pageview tracking. Self-hosted on Alhaji's own Supabase, so no third-party
+     analytics vendor, no cookies, and no consent banner. Stores a random id in
+     localStorage purely to tell a repeat visit from a new one. -->
+<script>
+(function () {
+  var ENDPOINT = "https://gnbrmuxxtocqmxcrxixz.supabase.co/functions/v1/track";
+  var KEY = "pf_vid";
+
+  var vid;
+  try {
+    vid = localStorage.getItem(KEY);
+    if (!vid) {
+      vid = (crypto && crypto.randomUUID)
+        ? crypto.randomUUID()
+        : String(Date.now()) + "-" + Math.random().toString(36).slice(2);
+      localStorage.setItem(KEY, vid);
+    }
+  } catch (e) {
+    // Private window or blocked storage: still count the view, just anonymously.
+    vid = null;
+  }
+
+  var tz = "";
+  try { tz = Intl.DateTimeFormat().resolvedOptions().timeZone || ""; } catch (e) {}
+
+  var start = Date.now();
+
+  function send(extra) {
+    var payload = {
+      path: location.pathname + location.search,
+      referrer: document.referrer || "",
+      visitor_id: vid,
+      tz: tz,
+      lang: navigator.language || ""
+    };
+    for (var k in extra) payload[k] = extra[k];
+
+    var blob = new Blob([JSON.stringify(payload)], { type: "application/json" });
+    if (navigator.sendBeacon && navigator.sendBeacon(ENDPOINT, blob)) return;
+    fetch(ENDPOINT, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+      keepalive: true
+    }).catch(function () {});
+  }
+
+  send({});
+
+  // Second beacon on the way out, carrying how long they actually stayed.
+  // That is the number that separates a real read from a bounce.
+  var sentExit = false;
+  function exit() {
+    if (sentExit) return;
+    sentExit = true;
+    send({ duration_s: Math.round((Date.now() - start) / 1000) });
+  }
+  addEventListener("pagehide", exit);
+  addEventListener("visibilitychange", function () {
+    if (document.visibilityState === "hidden") exit();
+  });
+})();
+</script>
 </head>
 <body>
 <div class="field" aria-hidden="true"></div>
