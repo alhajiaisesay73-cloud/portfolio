@@ -488,6 +488,17 @@
   var ENDPOINT = "https://gnbrmuxxtocqmxcrxixz.supabase.co/functions/v1/track";
   var KEY = "pf_vid";
 
+  // Owner opt-out. Visit once with ?owner=1 on each device you use and your
+  // own visits stop counting from then on. ?owner=0 undoes it.
+  try {
+    var q = new URLSearchParams(location.search);
+    if (q.has("owner")) {
+      if (q.get("owner") === "0") localStorage.removeItem("pf_owner");
+      else localStorage.setItem("pf_owner", "1");
+    }
+    if (localStorage.getItem("pf_owner") === "1") return;
+  } catch (e) {}
+
   var vid;
   try {
     vid = localStorage.getItem(KEY);
