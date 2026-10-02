@@ -236,10 +236,10 @@
     position: relative; overflow: hidden; padding: 24px 22px 22px; border-radius: var(--r);
     background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.13);
     backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
-    transition: background 0.4s var(--ease), border-color 0.4s var(--ease), transform 0.5s var(--ease);
+    transition: background 0.4s var(--ease), border-color 0.4s var(--ease);
   }
   .lane::after { content: ""; position: absolute; left: 0; top: 0; height: 2px; width: 100%; background: var(--blue-lift); transform-origin: 0 50%; }
-  .lane:hover { background: rgba(255,255,255,0.09); border-color: rgba(59,135,238,0.5); transform: translateY(-5px); }
+  .lane:hover { background: rgba(255,255,255,0.09); border-color: rgba(59,135,238,0.5); }
   .lane::before { counter-increment: lane; content: "0" counter(lane); display: block; font-size: 11.5px; font-weight: 800; letter-spacing: 0.16em; color: var(--blue-lift); margin-bottom: 12px; }
   .lane b { display: block; font-size: 18px; font-weight: 700; color: var(--hero-text); letter-spacing: -0.012em; line-height: 1.25; margin-bottom: 8px; }
   .lane span { display: block; font-size: 14.5px; line-height: 1.55; color: var(--hero-dim); }
@@ -398,7 +398,7 @@
   .cap {
     position: relative; border-radius: 18px; padding: 30px 28px; background: #fff; border: 1px solid var(--border);
     overflow: hidden; --cx: 50%; --cy: 50%;
-    transition: transform 0.5s var(--ease), box-shadow 0.5s var(--ease);
+    transition: box-shadow 0.5s var(--ease);
   }
   .cap::before {
     content: ""; position: absolute; inset: 0; border-radius: inherit; padding: 1.5px; pointer-events: none;
@@ -412,7 +412,7 @@
     background: radial-gradient(420px circle at var(--cx) var(--cy), rgba(30,111,217,0.07), transparent 55%);
     opacity: 0; transition: opacity 0.4s ease;
   }
-  .cap:hover { transform: translateY(-4px); box-shadow: 0 20px 44px rgba(13,27,42,0.10); }
+  .cap:hover { box-shadow: 0 20px 44px rgba(13,27,42,0.10); }
   .cap:hover::before, .cap:hover::after { opacity: 1; }
   .cap > * { position: relative; z-index: 1; }
   .cap .num { position: absolute; right: 24px; top: 20px; font-size: 54px; font-weight: 800; letter-spacing: -0.05em; color: var(--fill); line-height: 1; z-index: 0; transition: color 0.4s ease; }
@@ -430,8 +430,8 @@
   .rule::after { content: ""; position: absolute; left: 0; bottom: -1px; height: 2px; width: 100%; background: var(--blue); transform: scaleX(0); transform-origin: 0 50%; transition: transform 0.6s var(--ease); }
   .rule:hover::after { transform: scaleX(1); }
   .rule .n { font-size: 13px; font-weight: 800; color: var(--blue); letter-spacing: 0.1em; }
-  .rule h4 { margin: 0; font-size: clamp(18px, 1.8vw, 23px); font-weight: 700; color: var(--navy); letter-spacing: -0.015em; transition: transform 0.5s var(--ease); }
-  .rule:hover h4 { transform: translateX(8px); }
+  .rule h4 { margin: 0; font-size: clamp(18px, 1.8vw, 23px); font-weight: 700; color: var(--navy); letter-spacing: -0.015em; transition: padding-left 0.5s var(--ease); }
+  .rule:hover h4 { padding-left: 8px; }
   .rule p { margin: 0; font-size: 15.5px; max-width: none; }
   @media (max-width: 760px) { .rule { grid-template-columns: 1fr; gap: 6px; } }
 
@@ -1438,6 +1438,15 @@
 
   /* ---------------------------------------------------------- close */
   gsap.from('#close .pill', { scale: 0.6, opacity: 0, duration: 1.2, ease: 'elastic.out(1, 0.6)', scrollTrigger: { trigger: '#close .pill', start: 'top 92%', once: true } });
+
+  /* hover lifts for cards GSAP also moves: done in GSAP, never as a CSS transform transition */
+  if (fine) {
+    document.querySelectorAll('.lane, .cap').forEach(function (el) {
+      var lift = el.classList.contains('lane') ? -5 : -4;
+      el.addEventListener('pointerenter', function () { gsap.to(el, { y: lift, duration: 0.5, ease: 'power3.out', overwrite: 'auto' }); });
+      el.addEventListener('pointerleave', function () { gsap.to(el, { y: 0, duration: 0.5, ease: 'power3.out', overwrite: 'auto' }); });
+    });
+  }
 
   /* ---------------------------------------------------------- magnetic buttons */
   if (fine) {
